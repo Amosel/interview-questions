@@ -16,6 +16,8 @@
 
 **Q1:** Explain the difference between a public and a private blockchain.
 
+The main difference between private and public blockchain is access, but also it is safe to assume that a private blockchain will be permissioned and a public one will most likely be a permissionless one. As a rule of thumb the less restrictive a blockchain the higher the magnitude of its complexity will be. We are going to assume from now on that private is inherently permissioned and vice versa. A permissioned blockchain will restrict access. So for example, user can be restricted from accessing the blockchain data as a whole, restricted from inspecting some transaction, or some data in a transaction, as well as just restricted from issuing some or all transactions. A public blockchain (which we will regards as a permissionless one) is fundamentally different because there is no notion of permission what so ever. What that means is that it is fundamentally different, that is to say that the it is more different that it is similar to a private blockchain. In order to match the same security assurances a private blockchain provides, a public blockchain must be decentalised and in order to be decentralized. In comparison with centralized, A decentralized network require a lot  order to provide the similar security assurances. And in such the simpler the implementation of a blockchain the easier it is to provide speed and security.
+
 **Q2:** How do blocks in a blockchain ensure data integrity and immutability?
 
 **Q3:** How do sidechains work, and what are their primary purposes?
