@@ -1,0 +1,4 @@
+- Merkle Patricia Trie (https://ethereum.org/en/developers/docs/data-structures-and-encoding/patricia-merkle-trie/)
+- RLP
+- Keccack / Merkle
+- Transactions (https://ethereum.org/en/developers/docs/transactions/)
