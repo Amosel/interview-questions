@@ -1,6 +1,7 @@
 ## Distributed system
 
 - Reed-Solomon error correction (Scalability)
+  - Reed-Solomon code are crucial for cloud computing by allowing to reducing the need for excessive data replication. 
 - 2D parity check (Scalability)
 - Distributed Hash Tables (improve latency)
 - Paxos, Raft (Consistency)
