@@ -9,4 +9,8 @@ edition = "2021"
 name = "hourglass"
 path = "./src/bin/hourglass.rs"
 
+[[bin]]
+name = "rot_left"
+path = "./src/bin/rot_left.rs"
+
 [dependencies]
