@@ -13,4 +13,13 @@ path = "./src/bin/hourglass.rs"
 name = "rot_left"
 path = "./src/bin/rot_left.rs"
 
+[[bin]]
+name = "ny_chaos"
+path = "./src/bin/ny_chaos.rs"
+
+[[bin]]
+name = "unique_string"
+path = "./src/bin/unique_string.rs"
+
 [dependencies]
+rand = "0.8.5"
