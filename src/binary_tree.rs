@@ -6,8 +6,9 @@ pub struct TreeNode {
     pub right: Option<Box<TreeNode>>,
 }
 
+#[allow(dead_code)]
 impl TreeNode {
-    fn new(value: i32) -> Self {
+    pub fn new(value: i32) -> Self {
         TreeNode {
             value,
             left: None,
@@ -22,7 +23,9 @@ pub struct BinaryTree {
     pub root: Option<Box<TreeNode>>,
 }
 
+#[allow(dead_code)]
 impl BinaryTree {
+
     pub fn new() -> Self {
         BinaryTree { root: None }
     }
