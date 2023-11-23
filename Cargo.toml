@@ -21,5 +21,9 @@ path = "./src/bin/ny_chaos.rs"
 name = "unique_string"
 path = "./src/bin/unique_string.rs"
 
+[[bin]]
+name = "balanced_parentheses_checker"
+path = "./src/bin/balanced_parentheses_checker.rs"
+
 [dependencies]
 rand = "0.8.5"
