@@ -25,5 +25,9 @@ path = "./src/bin/unique_string.rs"
 name = "balanced_parentheses_checker"
 path = "./src/bin/balanced_parentheses_checker.rs"
 
+[[bin]]
+name = "longest_valid_parentheses"
+path = "./src/bin/longest_valid_parentheses.rs"
+
 [dependencies]
 rand = "0.8.5"
