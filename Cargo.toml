@@ -29,5 +29,10 @@ path = "./src/bin/balanced_parentheses_checker.rs"
 name = "longest_valid_parentheses"
 path = "./src/bin/longest_valid_parentheses.rs"
 
+[[bin]]
+name = "quicksort-retrieval1"
+path = "./src/bin/quicksort-retrieval1.rs"
+
+
 [dependencies]
 rand = "0.8.5"
