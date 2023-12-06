@@ -33,6 +33,10 @@ path = "./src/bin/longest_valid_parentheses.rs"
 name = "quicksort-retrieval1"
 path = "./src/bin/quicksort-retrieval1.rs"
 
+[[bin]]
+name = "minimum-remove-to-make-valid-parentheses"
+path = "./src/bin/minimum-remove-to-make-valid-parentheses.rs"
+
 
 [dependencies]
 rand = "0.8.5"
