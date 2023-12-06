@@ -37,6 +37,10 @@ path = "./src/bin/quicksort-retrieval1.rs"
 name = "minimum-remove-to-make-valid-parentheses"
 path = "./src/bin/minimum-remove-to-make-valid-parentheses.rs"
 
+[[bin]]
+name = "kth_largest_element_in_an_array"
+path = "./src/bin/kth_largest_element_in_an_array.rs"
+
 
 [dependencies]
 rand = "0.8.5"
