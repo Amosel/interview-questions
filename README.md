@@ -30,6 +30,6 @@ This repository is open-source and free to use. If re-purposing the content, ple
 
 ## ✉️ Contact
 
-For any queries, suggestions, or collaborations, feel free to contact me at [amoselk@gmail.com](mailto:amoselk@gmail.com).
+For any queries, suggestions, or collaborations, feel free to contact me at [amosel(_BAD_ROBOT_)@gmail.com](mailto:amosel(_BAD_ROBOT_)@gmail.com).
 
 Happy Learning! 🚀
