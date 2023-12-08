@@ -45,6 +45,10 @@ path = "./src/bin/kth_largest_element_in_an_array.rs"
 name = "merge_k_lists"
 path = "./src/bin/merge_k_lists.rs"
 
+[[bin]]
+name = "number_to_words"
+path = "./src/bin/number_to_words.rs"
+
 
 [dependencies]
 rand = "0.8.5"
