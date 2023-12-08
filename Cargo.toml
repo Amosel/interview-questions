@@ -41,6 +41,10 @@ path = "./src/bin/minimum-remove-to-make-valid-parentheses.rs"
 name = "kth_largest_element_in_an_array"
 path = "./src/bin/kth_largest_element_in_an_array.rs"
 
+[[bin]]
+name = "merge_k_lists"
+path = "./src/bin/merge_k_lists.rs"
+
 
 [dependencies]
 rand = "0.8.5"
