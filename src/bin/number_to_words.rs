@@ -26,7 +26,7 @@ fn get_below_thousand(num: i32) -> String {
         "Nineteen",
     ];
     let tens = [
-        "", "", "Twenty", "Thirty", "Fourty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninty",
+        "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninty",
     ];
 
     if num < 20 {
