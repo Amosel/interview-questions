@@ -19,14 +19,15 @@ fn get_below_thousand(num: i32) -> String {
         "Eleven",
         "Twelve",
         "Thirteen",
+        "Fourteen",
         "Fifteen",
         "Sixteen",
         "Seventeen",
-        "Eightteen",
+        "Eighteen",
         "Nineteen",
     ];
     let tens = [
-        "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninty",
+        "", "", "Twenty", "Thirty", "Fourty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety",
     ];
 
     if num < 20 {
@@ -93,13 +94,13 @@ mod tests {
     fn test_all() {
         assert_eq!(number_to_words(0), "Zero".to_string());
         assert_eq!(number_to_words(9), "Nine".to_string());
-        assert_eq!(number_to_words(90), "Ninty".to_string());
-        assert_eq!(number_to_words(91), "Ninty One".to_string());
-        assert_eq!(number_to_words(991), "Nine Hundred Ninty One".to_string());
+        assert_eq!(number_to_words(90), "Ninety".to_string());
+        assert_eq!(number_to_words(91), "Ninety One".to_string());
+        assert_eq!(number_to_words(991), "Nine Hundred Ninety One".to_string());
         assert_eq!(number_to_words(100), "One Hundred".to_string());
         assert_eq!(number_to_words(101), "One Hundred One".to_string());
         assert_eq!(number_to_words(1001), "One Thousand One".to_string());
-        assert_eq!(number_to_words(1991), "One Thousand Nine Hundred Ninty One".to_string());
+        assert_eq!(number_to_words(1991), "One Thousand Nine Hundred Ninety One".to_string());
         assert_eq!(number_to_words(1_356_124), "One Million Three Hundred Fifty Six Thousand One Hundred Twenty Four".to_string());
     }
 }
