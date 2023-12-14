@@ -49,6 +49,10 @@ path = "./src/bin/merge_k_lists.rs"
 name = "number_to_words"
 path = "./src/bin/number_to_words.rs"
 
+[[bin]]
+name = "calculator-retrieve"
+path = "./src/bin/calculator-retrieve.rs"
+
 
 [dependencies]
 rand = "0.8.5"
