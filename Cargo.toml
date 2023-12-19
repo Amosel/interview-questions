@@ -50,6 +50,15 @@ name = "number_to_words"
 path = "./src/bin/number_to_words.rs"
 
 [[bin]]
+name = "maximum_number_of_ways_to_partition_an_array"
+path = "./src/bin/maximum_number_of_ways_to_partition_an_array.rs"
+
+
+[[bin]]
+name = "calculator"
+path = "./src/bin/calculator.rs"
+
+[[bin]]
 name = "calculator-retrieve"
 path = "./src/bin/calculator-retrieve.rs"
 
