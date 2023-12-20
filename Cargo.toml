@@ -62,6 +62,10 @@ path = "./src/bin/calculator.rs"
 name = "calculator-retrieve"
 path = "./src/bin/calculator-retrieve.rs"
 
+[[bin]]
+name = "calculate_execution_times"
+path = "./src/bin/calculate_execution_times.rs"
+
 
 [dependencies]
 rand = "0.8.5"
