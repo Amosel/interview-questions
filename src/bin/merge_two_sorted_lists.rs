@@ -25,11 +25,7 @@
 
 // O(1). The iterative approach is expected.
 
-#[derive(PartialEq, Eq, Clone, Debug)]
-pub struct ListNode {
-    pub val: i32,
-    pub next: Option<Box<ListNode>>,
-}
+use leetcode::*;
 
 fn main() {
     // Test your function with different lists here

@@ -68,4 +68,5 @@ path = "./src/bin/calculate_execution_times.rs"
 
 
 [dependencies]
+leetcode = "0.1.4"
 rand = "0.8.5"

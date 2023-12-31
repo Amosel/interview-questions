@@ -23,8 +23,15 @@ dependencies = [
 name = "intreview-questions"
 version = "0.1.0"
 dependencies = [
+ "leetcode",
  "rand",
 ]
+
+[[package]]
+name = "leetcode"
+version = "0.1.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0fccc4c39f53807f41b6cbdfc45740a3e77bf094602dd201f762a6f34bac9124"
 
 [[package]]
 name = "libc"

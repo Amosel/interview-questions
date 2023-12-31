@@ -1,7 +1,9 @@
-use std::{cmp::Ordering, collections::BinaryHeap};
-
 // taken from: https://leetcode.com/problems/merge-k-sorted-lists/
 // Definition for singly-linked list.
+
+use std::{cmp::Ordering, collections::BinaryHeap};
+// not importing leetcode here so avoid Rusts No Orphan Rule and impl Ord and PartialEq
+
 #[derive(PartialEq, Eq, Clone, Debug)]
 pub struct ListNode {
     pub val: i32,
