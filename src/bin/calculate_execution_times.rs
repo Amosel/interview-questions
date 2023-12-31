@@ -1,28 +1,41 @@
-fn calculate_execution_times<'a>(
-    logs: &Vec<(&'a str, i32, &'a str)>,
-) -> Result<Vec<(&'a str, i32)>, String> {
-    let mut stack = Vec::new();
-    // TODO: Add your implementation here
+fn calculate_execution_times(
+    logs: &Vec<(&'static str, i32, &str)>,
+) -> Result<Vec<(&'static str, i32)>, String> {
+    let mut stack: Vec<(&'static str, i32, Option<i32>)> = Vec::new();
     for (name, timestamp, start_or_end) in logs {
         match *start_or_end {
-            "START" => {
-                // foo
-                stack.push((name, timestamp, 0));
-            }
+            "START" => stack.push((*name, *timestamp, None)),
             "END" => {
-                // foo
-                let index = stack.iter().position(|item| item.0 == name).unwrap();
-                let sum = (1 + index..stack.len()).map(|i| stack[i].2).sum::<i32>();
-                stack[index].2 = timestamp - stack[index].1 - sum;
-                println!("{}: {}", name, stack[index].2);
+                if let Some(index) = stack.iter().position(|s| s.0 == *name) {
+                    let mut duration = timestamp - stack[index].1;
+                    for i in (index + 1)..stack.len() {
+                        if let Some(item_duration) = stack[i].2 {
+                            duration -= item_duration;
+                        } else {
+                            let error_name: &str = stack[i].0;
+                            return Err(format!("Expected End for {error_name}"));
+                        }
+                    }
+                    stack[index].2 = Some(duration);
+                } else {
+                    return Err(format!("Expected END for {name}"));
+                }
             }
-            _ => {}
+            _ => return Err(format!("Expected START or END got {start_or_end}")),
         }
     }
-    Ok(stack
-        .iter()
-        .map(|&(&name, _, duration)| (name, duration))
-        .collect::<Vec<(&'a str, i32)>>())
+    let mut result = Vec::new();
+
+    for item in stack {
+        match item {
+            (name, _, Some(duration)) => result.push((name, duration)),
+            _ => {
+                let error_name: &str = item.0;
+                return Err(format!("Expected End for {error_name}"));
+            }
+        }
+    }
+    Ok(result)
 }
 
 fn main() {}
@@ -68,54 +81,16 @@ mod tests {
         assert_eq!(execution_times.get(4), Some(&("func5", 10))); // Total time for func5
         assert_eq!(execution_times.get(5), Some(&("func6", 40))); // Total time for func6
     }
-    // TODO: return an error when overlapping
-    // // Test for overlapping function calls
-    // #[test]
-    // fn test_overlapping_functions() {
-    //     let logs = vec![
-    //         ("func1", 100, "START"),
-    //         ("func2", 150, "START"),
-    //         ("func1", 200, "END"),
-    //         ("func2", 250, "END"),
-    //     ];
-    //     let execution_times = calculate_execution_times(&logs);
-    //     assert_eq!(execution_times.unwrap().get(0), Some(&("func1", 100)));
-    //     assert_eq!(execution_times.unwrap().get(1), Some(&("func2", 100)));
-    // }
-
-    // Test for function calls with no end
     #[test]
-    fn test_no_end_call() {
+    fn test_err_no_end_call() {
         let logs = vec![("func1", 100, "START"), ("func2", 150, "START")];
         let execution_times = calculate_execution_times(&logs);
-        assert!(execution_times.is_ok());
-        let execution_times = execution_times.unwrap();
-        // Assuming functions without an end are not counted
-        assert_eq!(execution_times.get(0), None);
-        assert_eq!(execution_times.get(0), None);
+        assert!(execution_times.is_err());
     }
-
-    // Test for function calls with no start
     #[test]
-    fn test_no_start_call() {
+    fn test_err_no_start_call() {
         let logs = vec![("func1", 200, "END"), ("func2", 250, "END")];
         let execution_times = calculate_execution_times(&logs);
-        assert!(execution_times.is_ok());
-        let execution_times = execution_times.unwrap();
-        // Assuming functions without a start are not counted
-        assert_eq!(execution_times.get(0), None);
-        assert_eq!(execution_times.get(0), None);
+        assert!(execution_times.is_err());
     }
-
-    // TODO: resturn error on out of order
-    // Test for out-of-order logs
-    // #[test]
-    // fn test_out_of_order_logs() {
-    //     let logs = vec![("func1", 300, "END"), ("func1", 100, "START")];
-    //     let execution_times = calculate_execution_times(&logs);
-    //     // Assuming the function correctly handles out-of-order logs
-    //     assert_eq!(execution_times.get("func1"), Some(&200));
-    // }
-
-    // Add more tests for other complex scenarios as needed
 }
