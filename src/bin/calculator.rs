@@ -1,104 +1,132 @@
+// https://leetcode.com/problems/basic-calculator/
+
+// use core::num;
+// use std::collections::HashMap;
+// Evaluates a mathematical expression represented as a vector of strings.
+
 use std::collections::HashMap;
 
-// Evaluates a mathematical expression represented as a vector of strings.
-pub fn evaluate_expression(tokens: Vec<&str>) -> Result<f64, String> {
-    let mut operator_stack: Vec<&str> = Vec::new();
-    let mut output_stack: Vec<f64> = Vec::new();
-    let precedence = operator_precedence();
+fn main() {}
 
-    for token in tokens {
-        match token {
-            // If token is a number, parse it and push onto the output stack.
-            number if number.parse::<f64>().is_ok() => {
-                output_stack.push(number.parse().unwrap());
+fn apply_op(op: &str, numbers: &mut Vec<f64>) -> Result<(), String> {
+    if numbers.len() < 2 {
+        return Err(format!("Not enought numbers to run expr"));
+    }
+    let b = numbers.pop().unwrap();
+    let a = numbers.pop().unwrap();
+    match op {
+        "+" => numbers.push(a + b),
+        "-" => numbers.push(a - b),
+        "*" => numbers.push(a * b),
+        "/" => {
+            if a == 0.0 {
+                return Err(format!("Divide by zero"));
             }
-            // If token is an operator, handle according to precedence.
-            "+" | "-" | "*" | "/" => {
-                while let Some(&op_top) = operator_stack.last() {
-                    if op_top != "(" && precedence[op_top] >= precedence[token] {
-                        let result =
-                            apply_operator(operator_stack.pop().unwrap(), &mut output_stack)?;
-                        output_stack.push(result);
-                    } else {
-                        break;
-                    }
-                }
-                operator_stack.push(token);
-            }
-            // If token is a left parenthesis, push it onto the stack.
-            "(" => operator_stack.push(token),
-            // If token is a right parenthesis, pop operators until a left parenthesis is encountered.
-            ")" => {
-                while let Some(op) = operator_stack.pop() {
-                    // reached end:
-                    if op == "(" {
-                        break;
-                    }
-                    let result = apply_operator(op, &mut output_stack)?;
-                    output_stack.push(result);
-                }
-            }
-            _ => return Err("Invalid token".to_string()),
+            numbers.push(b / a)
         }
+        _ => return Err(format!("Expected an op {op}")),
     }
-
-    // After processing all tokens, apply remaining operators.
-    while let Some(op) = operator_stack.pop() {
-        if op != "(" {
-            let result = apply_operator(op, &mut output_stack)?;
-            output_stack.push(result);
-        }
-    }
-
-    // The final result should be the only element in the output stack.
-    if output_stack.len() == 1 {
-        Ok(output_stack[0])
-    } else {
-        Err("Invalid expression".to_string())
-    }
+    println!(
+        "Applying op {op} with {a} and {b} got {}",
+        numbers.last().unwrap()
+    );
+    Ok(())
 }
 
-// Returns a HashMap representing the precedence of each operator.
-fn operator_precedence() -> HashMap<&'static str, i32> {
+// vec![
+//                 "(", "1", "+", "(", "4", "+", "5", "+", "2", ")", "-", "3", ")", "+", "(", "6",
+//                 "+", "8", ")"
+//             ]
+#[allow(dead_code)]
+fn evaluate_expression(input: Vec<&'static str>) -> Result<f64, String> {
+    let mut op_stack: Vec<&'static str> = Vec::new();
+    let mut num_stack = Vec::new();
     let mut precedence = HashMap::new();
     precedence.insert("+", 1);
     precedence.insert("-", 1);
     precedence.insert("*", 2);
     precedence.insert("/", 2);
-    precedence
-}
 
-// Applies an operator to the last two values in the output stack.
-fn apply_operator(operator: &str, output_stack: &mut Vec<f64>) -> Result<f64, String> {
-    if output_stack.len() < 2 {
-        return Err("Insufficient values in the expression".to_string());
-    }
-
-    let b = output_stack.pop().unwrap();
-    let a = output_stack.pop().unwrap();
-
-    let result = match operator {
-        "+" => a + b,
-        "-" => a - b,
-        "*" => a * b,
-        "/" => {
-            if b == 0.0 {
-                return Err("Division by zero".to_string());
+    for curr_item in input {
+        match curr_item {
+            "+" | "-" | "*" | "/" => {
+                while op_stack
+                    .last()
+                    .and_then(|&op| {
+                        if op != "(" && precedence[op] >= precedence[curr_item] {
+                            Some(op)
+                        } else {
+                            None
+                        }
+                    })
+                    .is_some()
+                {
+                    apply_op(op_stack.pop().unwrap(), &mut num_stack)?;
+                }
+                op_stack.push(curr_item);
+                println!("Adding {curr_item}, {:?}", op_stack);
             }
-            a / b
+            "(" => op_stack.push(curr_item),
+            ")" => {
+                while let Some(op) = op_stack.pop() {
+                    if op == "(" {
+                        break;
+                    }
+                    apply_op(op, &mut num_stack)?;
+                }
+            }
+            _ => num_stack.push(
+                curr_item
+                    .parse::<f64>()
+                    .map_err(|_| format!("Expected a float literal {curr_item}"))?,
+            ),
         }
-        _ => return Err("Invalid operator".to_string()),
-    };
-
-    Ok(result)
+    }
+    println!("last one {:?}", op_stack);
+    while let Some(op) = op_stack.pop() {
+        if op == "(" {
+            break;
+        }
+        apply_op(op, &mut num_stack)?;
+    }
+    Ok(num_stack.pop().unwrap())
 }
 
-fn main() {
-    let expression = vec!["3", "+", "5", "*", "(", "2", "-", "1", ")"];
-    match evaluate_expression(expression) {
-        Ok(result) => println!("Result: {}", result),
-        Err(e) => println!("Error: {}", e),
+#[allow(dead_code)]
+fn to_array(input: &'static str) -> Result<Vec<&'static str>, String> {
+    let mut start: Option<usize> = None;
+    let mut result: Vec<&'static str> = Vec::new();
+    for i in 0..input.len() {
+        let c: &'static str = input.get(i..i + 1).unwrap();
+
+        match c {
+            "+" | "-" | "*" | "/" | "(" | ")" => {
+                if let Some(start_index) = start.take() {
+                    let number: &'static str = input.get(start_index..i).unwrap().trim();
+                    if number.parse::<f64>().is_err() {
+                        return Err(format!("Expected {number} to be a float literal"));
+                    }
+                    result.push(number);
+                }
+                result.push(c);
+            }
+            "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "0" | "." => {
+                if start.is_none() {
+                    start = Some(i);
+                }
+            }
+            _ => {}
+        }
     }
+    if let Some(start_index) = start.take() {
+        let len = input.len();
+        let number: &'static str = input.get(start_index..len).unwrap().trim();
+        if number.parse::<f64>().is_err() {
+            return Err(format!("Expected {number} to be a float literal"));
+        }
+        result.push(number);
+    }
+    Ok(result)
 }
 
 #[cfg(test)]
@@ -106,10 +134,35 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_all() {
+    fn test_to_array() {
+        assert_eq!(to_array("100 + 100"), Ok(vec!["100", "+", "100"]));
+        assert_eq!(to_array(" 2 - 1 + 2 "), Ok(vec!["2", "-", "1", "+", "2"]));
         assert_eq!(
-            evaluate_expression(vec!["3", "+", "5", "*", "(", "2", "-", "1", ")"]),
-            Result::Ok(8f64)
+            to_array("3+5 * (2 - 1)"),
+            Ok(vec!["3", "+", "5", "*", "(", "2", "-", "1", ")"])
+        );
+        assert_eq!(
+            to_array("(1+(4+5+2)-3)+(6+8)"),
+            Ok(vec![
+                "(", "1", "+", "(", "4", "+", "5", "+", "2", ")", "-", "3", ")", "+", "(", "6",
+                "+", "8", ")"
+            ])
+        );
+    }
+    #[test]
+    fn test_all() {
+        assert_eq!(evaluate_expression(to_array("1 + 1").unwrap()), Ok(2.0));
+        assert_eq!(
+            evaluate_expression(to_array(" 2 - 1 * 4 ").unwrap()),
+            Ok(-2.0)
+        );
+        assert_eq!(
+            evaluate_expression(to_array("3 + 5 * (2 - 1)").unwrap()),
+            Ok(8.0)
+        );
+        assert_eq!(
+            evaluate_expression(to_array("(1+(4+5+2)-3)+(6+8)").unwrap()),
+            Ok(23.0)
         );
     }
 }
