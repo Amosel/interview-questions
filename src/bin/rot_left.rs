@@ -26,7 +26,10 @@ fn main() {
 
     let mut fptr = File::create(env::var("OUTPUT_PATH").unwrap()).unwrap();
 
-    let first_multiple_input: Vec<String> = stdin_iterator.next().unwrap().unwrap()
+    let first_multiple_input: Vec<String> = stdin_iterator
+        .next()
+        .unwrap()
+        .unwrap()
         .split(' ')
         .map(|s| s.to_string())
         .collect();
@@ -35,7 +38,10 @@ fn main() {
 
     let d = first_multiple_input[1].trim().parse::<i32>().unwrap();
 
-    let a: Vec<i32> = stdin_iterator.next().unwrap().unwrap()
+    let a: Vec<i32> = stdin_iterator
+        .next()
+        .unwrap()
+        .unwrap()
         .trim_end()
         .split(' ')
         .map(|s| s.to_string().parse::<i32>().unwrap())

@@ -100,7 +100,13 @@ mod tests {
         assert_eq!(number_to_words(100), "One Hundred".to_string());
         assert_eq!(number_to_words(101), "One Hundred One".to_string());
         assert_eq!(number_to_words(1001), "One Thousand One".to_string());
-        assert_eq!(number_to_words(1991), "One Thousand Nine Hundred Ninety One".to_string());
-        assert_eq!(number_to_words(1_356_124), "One Million Three Hundred Fifty Six Thousand One Hundred Twenty Four".to_string());
+        assert_eq!(
+            number_to_words(1991),
+            "One Thousand Nine Hundred Ninety One".to_string()
+        );
+        assert_eq!(
+            number_to_words(1_356_124),
+            "One Million Three Hundred Fifty Six Thousand One Hundred Twenty Four".to_string()
+        );
     }
 }

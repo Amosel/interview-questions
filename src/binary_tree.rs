@@ -25,7 +25,6 @@ pub struct BinaryTree {
 
 #[allow(dead_code)]
 impl BinaryTree {
-
     pub fn new() -> Self {
         BinaryTree { root: None }
     }

@@ -10,13 +10,25 @@ fn main() {
 fn is_balanced(s: &str) -> bool {
     let mut stack = Vec::new();
     for char in s.chars() {
-      match char {
-          ')' => if stack.pop() != Some('(') { return false },
-          ']' => if stack.pop() != Some('[') { return false },
-          '}' => if stack.pop() != Some('{') { return false },
-          '(' | '[' | '{' => stack.push(char),
-          _ => {}
-      }
+        match char {
+            ')' => {
+                if stack.pop() != Some('(') {
+                    return false;
+                }
+            }
+            ']' => {
+                if stack.pop() != Some('[') {
+                    return false;
+                }
+            }
+            '}' => {
+                if stack.pop() != Some('{') {
+                    return false;
+                }
+            }
+            '(' | '[' | '{' => stack.push(char),
+            _ => {}
+        }
     }
     stack.is_empty()
 }
