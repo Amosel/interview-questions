@@ -70,8 +70,16 @@ path = "./src/bin/calculate_execution_times.rs"
 name = "problem_name"
 path = "./src/bin/problem_name.rs"
 
+[[bin]]
+name = "add-two-numbers"
+path = "./src/bin/add-two-numbers.rs"
+
 [dependencies]
 chrono = "0.4.39"
 convert_case = "0.7.1"
 leetcode = "0.1.4"
 rand = "0.8.5"
+
+[[bin]]
+name = "balanced_delimiters_stack"
+path = "./src/bin/balanced_delimiters_stack.rs"
